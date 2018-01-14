@@ -6,6 +6,7 @@ public class BookAccount {
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
+        //输入新书名字
         String book = in.nextLine();
         float account = getAccount(book);
         System.out.println("图书(" + book +")的折扣系数为：" + account);
