@@ -6,12 +6,18 @@ public class BookAccount {
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        //输入书名字
+        float price = 0.0f;
+
+        System.out.println("请输入书的种类：");
         String book = in.nextLine();
-        //不同的书，获取不同的折扣系数
         float account = getAccount(book);
-        System.out.println("图书(" + book +")的折扣系数为：" + account);
+        System.out.println("请输入书的数量：");
+        int num = in.nextInt();
+        price = account * num;
+
+        System.out.println("书的总价格为：" + price);
     }
+    //计算折扣系数
     public static float getAccount(String book){
         float account = 0.0f;
         if (book.equals("新书")){
