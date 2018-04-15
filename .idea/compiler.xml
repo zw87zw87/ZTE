@@ -19,8 +19,8 @@
         <module name="ZTE" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="ZTE" target="1.5" />
+    <bytecodeTargetLevel target="1.8">
+      <module name="ZTE" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
