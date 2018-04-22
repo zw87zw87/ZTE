@@ -13,13 +13,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 
-public class CSV1 {
+public class CSVmain {
     //文件名字
     private static String name = "测试题目.csv";
-
-    public String sayHello() {
-        return "hello";
-    }
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
