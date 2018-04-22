@@ -1,8 +1,11 @@
 package csv;
 
 import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVPrinter;
+import org.apache.commons.csv.CSVRecord;
 
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -28,18 +31,41 @@ public class CSV1 {
                 e.printStackTrace();
             }
         }
-        writeCSV();
+        //writeCSV();
+        readCSV(name);
     }
+
+    private static void readCSV(String name) {
+        try {
+            List<User> list = new ArrayList<>();
+            CSVParser parser = new CSVParser(new FileReader(name), CSVFormat.DEFAULT.withHeader());
+            for (CSVRecord record : parser){
+//                System.out.println(record.get("学号"));
+//                System.out.println(record.get("姓名"));
+//                System.out.println(record.get("年龄"));
+//                System.out.println(record.get("成绩"));
+                User user = new User(record.get("学号"),
+                        record.get("姓名"),
+                        Integer.parseInt(record.get("年龄")),
+                        Double.parseDouble(record.get("成绩")));
+                list.add(user);
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void writeCSV(){
         CSVFormat format = CSVFormat.DEFAULT.withRecordSeparator("\n");
         try {
             CSVPrinter printer = new CSVPrinter(new FileWriter(name), format);
             printer.printRecord("学号","姓名","年龄","成绩");
             List<User> list = new ArrayList<>();
-            list.add(new User("001","张三",19,89.1));
-            list.add(new User("002","李四",20,85.3));
-            list.add(new User("003","王五",17,90));
-            list.add(new User("004","赵六",23,93.4));
+            list.add(new User("1","张三",19,89.1));
+            list.add(new User("2","李四",20,85.3));
+            list.add(new User("3","王五",17,90));
+            list.add(new User("4","赵六",23,93.4));
             for (User user : list){
                 printer.printRecord(user.getNumber(),user.getName(),user.getAge(),user.getScore());
             }
