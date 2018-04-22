@@ -11,8 +11,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class CSV1 {
     //文件名字
@@ -23,6 +22,18 @@ public class CSV1 {
     }
 
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("请选择序号： 1.学号排序 2.年龄排序 3.成绩排序");
+        int num = scanner.nextInt();
+        System.out.println("请选择排序方式： 1.正序 2.倒序");
+        int sort = scanner.nextInt();
+
+//        createCSV();
+//        writeCSV();
+        readCSV(name, num, sort);
+    }
+
+    public static void createCSV() {
         Path path = Paths.get(name);
         if (!Files.exists(path)){
             try {
@@ -31,19 +42,13 @@ public class CSV1 {
                 e.printStackTrace();
             }
         }
-        //writeCSV();
-        readCSV(name);
     }
 
-    private static void readCSV(String name) {
+    public static void readCSV(String name, int num, int sort) {
         try {
             List<User> list = new ArrayList<>();
             CSVParser parser = new CSVParser(new FileReader(name), CSVFormat.DEFAULT.withHeader());
             for (CSVRecord record : parser){
-//                System.out.println(record.get("学号"));
-//                System.out.println(record.get("姓名"));
-//                System.out.println(record.get("年龄"));
-//                System.out.println(record.get("成绩"));
                 User user = new User(record.get("学号"),
                         record.get("姓名"),
                         Integer.parseInt(record.get("年龄")),
@@ -51,8 +56,32 @@ public class CSV1 {
                 list.add(user);
             }
 
+            createSort(list, num, sort);
+
+            for (User u : list){
+                System.out.println(u.getNumber() + ", "+ u.getName() +", "+ u.getAge() +", "+u.getScore());
+            }
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public static void createSort(List<User> list, int num, int sort) {
+        //正序
+        if (num == 1 && sort == 1){
+            Collections.sort(list, Comparator.comparing(User::getNumber));
+        }else if (num == 2&& sort == 1){
+            Collections.sort(list, Comparator.comparing(User::getAge));
+        }else if (num == 3&& sort == 1){
+            Collections.sort(list, Comparator.comparing(User::getScore));
+        }
+        //倒序
+        if (num == 1 && sort == 2){
+            Collections.sort(list, Comparator.comparing(User::getNumber).reversed());
+        }else if (num == 2&& sort == 2){
+            Collections.sort(list, Comparator.comparing(User::getAge).reversed());
+        }else if (num == 3&& sort == 2){
+            Collections.sort(list, Comparator.comparing(User::getScore).reversed());
         }
     }
 
