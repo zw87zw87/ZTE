@@ -1,5 +1,6 @@
 package csv;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -31,12 +32,32 @@ public class CSVmainTest {
 
     @Test
     public void readCSV() throws Exception {
-        new CSVmain().readCSV("测试题目.csv", 1, 1);
+        List<User> expList = new CSVmain().readCSV("测试题目.csv", 1, 1);
+        Assert.assertEquals(list.toArray()[0].toString(), expList.toArray()[0].toString());
+        Assert.assertEquals(list.toArray()[1].toString(), expList.toArray()[1].toString());
+        Assert.assertEquals(list.toArray()[2].toString(), expList.toArray()[2].toString());
+        Assert.assertEquals(list.toArray()[3].toString(), expList.toArray()[3].toString());
     }
 
     @Test
     public void createSort() throws Exception {
-        new CSVmain().createSort(list, 1, 1);
+        List<User> numList = new ArrayList<>();
+        numList.add(list.get(0));
+        numList.add(list.get(1));
+        numList.add(list.get(2));
+        numList.add(list.get(3));
+
+        List<User> numList1 = new ArrayList<>();
+        numList1.add(list.get(3));
+        numList1.add(list.get(2));
+        numList1.add(list.get(1));
+        numList1.add(list.get(0));
+
+        new CSVmain().createSort(list, 1,   1);
+        Assert.assertArrayEquals(numList.toArray(), list.toArray());
+
+        new CSVmain().createSort(list, 1,   2);
+        Assert.assertArrayEquals(numList1.toArray(), list.toArray());
     }
 
     @Test

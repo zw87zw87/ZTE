@@ -1,4 +1,4 @@
-package quiz;
+package book;
 
 import java.util.Scanner;
 
