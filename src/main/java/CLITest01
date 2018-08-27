@@ -1,0 +1,71 @@
+import org.apache.commons.cli.*;
+
+public class CLITest01 {
+    public static void main(String[] args) {
+        String order = "Uca getrole -h";
+//        String order = "Uca getrole";
+//        String order = "Uca deleterole -id testrole";
+//        String order = "Uca deleterole -id testrole -output json";
+//        String order = "Uca addrole -id testrole -name aab -output json";
+        String[] orderArray = order.split("\\s+");
+
+        //一级命令加上-
+        orderArray[0] = "-" + orderArray[0];
+
+
+        Options options = new Options();
+        Option option = new Option("u", "Uca", false, "一级命令");
+        option.setRequired(true);
+        options.addOption(option);
+
+        option = new Option("h", "help", false, "帮助命令");
+        option.setRequired(false);
+        options.addOption(option);
+
+        option = new Option("i", "id", true, "role id");
+        option.setRequired(false);
+        options.addOption(option);
+
+        option = new Option("n", "name", true, "role name");
+        option.setRequired(false);
+        options.addOption(option);
+
+        option = new Option("o", "output", true, "输出格式");
+        option.setRequired(false);
+        options.addOption(option);
+
+        CommandLineParser commandLineParser = new DefaultParser();
+        CommandLine commandLine =  null;
+        try {
+            commandLine = commandLineParser.parse(options, orderArray);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        if (commandLine.hasOption('u')){
+            String temp = commandLine.getOptionValue('u');
+            System.out.println(temp);
+        }
+
+        if (commandLine.hasOption('h')){
+            new HelpFormatter().printHelp("语法", options, true);
+//            new HelpFormatter().printHelp("cmdLineSyntax", options);
+        }
+
+        if (commandLine.hasOption('i')){
+            String temp = commandLine.getOptionValue('i');
+            System.out.println(temp);
+        }
+
+        if (commandLine.hasOption("n")){
+            String temp = commandLine.getOptionValue("n");
+            System.out.println(temp);
+        }
+
+        if (commandLine.hasOption("o")){
+            String temp = commandLine.getOptionValue("o");
+            System.out.println(temp);
+        }
+
+    }
+}
